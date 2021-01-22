@@ -7,7 +7,7 @@ using Parks.Models;
 
 namespace Parks.Controllers
 {
-    [Route("api/[controller")]
+    [Route("api/[controller]")]
     [ApiController]
     public class StateParksController : ControllerBase
     {
