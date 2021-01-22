@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,22 @@ namespace Parks.Controllers
         public void Post([FromBody] NatlPark natlPark)
         {
             _db.NatlParks.Add(natlPark);
+            _db.SaveChanges();
+        }
+
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] NatlPark natlPark)
+        {
+            natlPark.NatlParkId = id;
+            _db.Entry(natlPark).State = EntityState.Modified;
+            _db.SaveChanges();
+        }
+
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            var parkToDelete = _db.NatlParks.FirstOrDefault(entry => entry.NatlParkId == id);
+            _db.NatlParks.Remove(parkToDelete);
             _db.SaveChanges();
         }
     }
