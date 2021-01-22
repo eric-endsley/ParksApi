@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Parks.Models;
@@ -24,7 +25,7 @@ namespace Parks.Controllers
         public ActionResult<IEnumerable<StatePark>> Get(string state)
         {
             var query = _db.StateParks.AsQueryable();
-            
+
             if (state != null)
             {
                 query = query.Where(entry => entry.State == state);
