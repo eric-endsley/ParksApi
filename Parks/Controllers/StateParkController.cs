@@ -9,6 +9,7 @@ using Parks.Models;
 namespace Parks.Controllers
 {
     [Route("api/[controller]")]
+    [ApiVersion("1.0")]
     [ApiController]
     public class StateParksController : ControllerBase
     {
@@ -20,9 +21,16 @@ namespace Parks.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<StatePark>> Get()
+        public ActionResult<IEnumerable<StatePark>> Get(string state)
         {
-            return _db.StateParks.ToList();
+            var query = _db.StateParks.AsQueryable();
+            
+            if (state != null)
+            {
+                query = query.Where(entry => entry.State == state);
+            }
+
+            return query.ToList();
         }
 
         [HttpPost]

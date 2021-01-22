@@ -21,9 +21,16 @@ namespace Parks.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<NatlPark>> Get()
+        public ActionResult<IEnumerable<NatlPark>> Get(string state)
         {
-            return _db.NatlParks.ToList();
+            var query = _db.NatlParks.AsQueryable();
+            
+            if (state != null)
+            {
+                query = query.Where(entry => entry.State == state);
+            }
+
+            return query.ToList();
         }
 
         [HttpPost]
