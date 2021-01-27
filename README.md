@@ -99,7 +99,7 @@ This API utilizes authentication with JWS tokens. You do not need to register a 
 
 ### Swagger
 
-All endpoints discussed in this section are listed on the API's Swagger page. This can be found by navigating to 'http://localhost:<your-local-host-port>/swagger'.
+All endpoints discussed in this section are listed on the API's Swagger page. This can be found by appending '/swagger' the your local hosts url. Most likely this will be located at 'http://localhost:5000/Swagger'
 
 To use an endpoint simply append the route listed in the swagger documentation (e.g. /api/NatlParks) to your local host address in the Postman URL input field and select the corresponding API Call type from the dropdown menu (e.g. GET).
 
@@ -107,7 +107,7 @@ Make sure to include all required parameters as listed in the Swagger documentat
 
 ### Endpoints Warranting Clarification
 
-- POST calls to either the /api/natlparks or /api/stateparks endpoint require a JSON body which _must_ include a name and state, formatted as below:
+- POST and PUT calls to either the /api/natlparks or /api/stateparks endpoint require a JSON body which _must_ include a name and state, formatted as below:
 
 ```
 {
@@ -116,7 +116,11 @@ Make sure to include all required parameters as listed in the Swagger documentat
 }
 ```
 
-An ID field may be included, but is not recommended, as the ID property is set to autoincrement which will keep the IDs consistent.
+An ID field may be included, but is not recommended, as the ID property is set to autoincrement which will keep IDs consistent.
+
+- PUT & DELETE calls to either the the /api/natlparks or /api/stateparks endpoint must specify the id of the JSON object (park) that they wish to edit or delete, this is specified by overwriting {id} in the endpoint listed on Swagger. For example '/api/stateparks/3' will refer to the State Park json object with and id of 3.
+
+- GET calls to either the the /api/natlparks or /api/stateparks endpoint may optionally specify a state in the endpoint url, which will then return only JSON objects (parks) whose state field is equal to the state specified. This is done by appending ?state=< STATE-TO-SEARCH-HERE > to the end of the route. For example '/api/stateparks?state=Oregon' will return a list of Oregon's stateparks from the database.
 
 ## Technologies Used
 
